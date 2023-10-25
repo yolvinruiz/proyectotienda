@@ -7,12 +7,10 @@ using System.Data;
 using System.Data.SqlClient;
 using capaentidad;
 using capadatos;
-
 namespace capadatos
 {
-    class datproducto
+    public class datproducto
     { 
- #region sigleton
  //Patron Singleton
  // Variable estática para la instancia
  private static readonly datproducto _instancia = new datproducto();
@@ -24,8 +22,7 @@ namespace capadatos
                 return datproducto._instancia;
             }
         }
-        #endregion singleton
-        #region metodos
+
         ////////////////////listado de Clientes
         public List<entproducto> ListarCliente()
         {
@@ -61,20 +58,20 @@ namespace capadatos
 return lista;
  }
  /////////////////////////InsertaCliente
- public Boolean InsertarCliente(entCliente Cli)
+ public Boolean InsertarCliente(entproducto pro)
 {
     SqlCommand cmd = null;
     Boolean inserta = false;
     try
     {
-        SqlConnection cn = Conexion.Instancia.Conectar();
+        SqlConnection cn = conexion.Instancia.Conectar();
         cmd = new SqlCommand("spInsertarCliente", cn);
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("@razonSocial", Cli.razonSocial);
-        cmd.Parameters.AddWithValue("@idTipoCliente", Cli.idTipoCliente);
-        cmd.Parameters.AddWithValue("@fecRegCliente", Cli.fecRegCliente);
-        cmd.Parameters.AddWithValue("@idCiudad", Cli.idCiudad);
-        cmd.Parameters.AddWithValue("@estCliente", Cli.estCliente);
+        cmd.Parameters.AddWithValue("@nombre", pro.nombre);
+        cmd.Parameters.AddWithValue("@descripcion", pro.descripcion);
+        cmd.Parameters.AddWithValue("@precio", pro.precio);
+        cmd.Parameters.AddWithValue("@estado", pro.estado);
+        cmd.Parameters.AddWithValue("@rubro", pro.rubro);
         cn.Open();
         int i = cmd.ExecuteNonQuery();
         if (i > 0)
@@ -90,21 +87,21 @@ return lista;
     return inserta;
 }
 //////////////////////////////////EditaCliente
-public Boolean EditarCliente(entCliente Cli)
+public Boolean EditarCliente(entproducto pro)
 {
     SqlCommand cmd = null;
     Boolean edita = false;
     try
     {
-        SqlConnection cn = Conexion.Instancia.Conectar();
+        SqlConnection cn = conexion.Instancia.Conectar();
         cmd = new SqlCommand("spEditarCliente", cn);
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("@idCliente", Cli.idCliente);
-        cmd.Parameters.AddWithValue("@razonSocial", Cli.razonSocial);
-        cmd.Parameters.AddWithValue("@idTipoCliente", Cli.idTipoCliente);
-        cmd.Parameters.AddWithValue("@fecRegCliente", Cli.fecRegCliente);
- cmd.Parameters.AddWithValue("@idCiudad", Cli.idCiudad);
- cmd.Parameters.AddWithValue("@estCliente", Cli.estCliente);
+        cmd.Parameters.AddWithValue("@nombre", pro.nombre);
+        cmd.Parameters.AddWithValue("@descripcion", pro.descripcion);
+        cmd.Parameters.AddWithValue("@precio", pro.precio);
+        cmd.Parameters.AddWithValue("@estado", pro.estado);
+        cmd.Parameters.AddWithValue("@rubro", pro.rubro);
+ 
  cn.Open();
  int i = cmd.ExecuteNonQuery();
  if (i > 0)
@@ -120,17 +117,17 @@ finally { cmd.Connection.Close(); }
 return edita;
  }
  //deshabilitaCliente
- public Boolean DeshabilitarCliente(entCliente Cli)
+ public Boolean DeshabilitarCliente(entproducto pro)
 {
     SqlCommand cmd = null;
     Boolean delete = false;
     try
     {
-        SqlConnection cn = Conexion.Instancia.Conectar();
+        SqlConnection cn = conexion.Instancia.Conectar();
         cmd = new SqlCommand("spDesabilitarCliente", cn);
         cmd.CommandType = CommandType.StoredProcedure;
-        cmd.Parameters.AddWithValue("@idCliente", Cli.idCliente);
-        cmd.Parameters.AddWithValue("@estCliente", Cli.estCliente);
+        cmd.Parameters.AddWithValue("@idproducto", pro.idproducto );
+        cmd.Parameters.AddWithValue("@estado", pro.estado);
         cn.Open();
         int i = cmd.ExecuteNonQuery();
         if (i > 0)
@@ -145,7 +142,6 @@ return edita;
     finally { cmd.Connection.Close(); }
     return delete;
 }
- #endregion metodos
  }
     }
 

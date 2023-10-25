@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+
 using capaentidad;
 using capadatos;
 
@@ -10,7 +11,7 @@ namespace capalogica
 {
     public class logproducto
     {
-        #region sigleton
+
         //Patron Singleton
         // Variable estática para la instancia
         private static readonly logproducto _instancia = new logproducto();
@@ -22,18 +23,17 @@ namespace capalogica
                 return logproducto._instancia;
             }
         }
-        #endregion singleton
-        #region metodos
         ///listado
 
         public List<entproducto> ListarCliente()
         {
             return datproducto.Instancia.ListarCliente();
-        }
+
         ///inserta
-        public void InsertaCliente(entproducto Cli)
-        {
-            datproducto.Instancia.InsertarCliente(Cli);
+             void InsertaCliente(entproducto Cli)
+            {
+                datproducto.Instancia.InsertarCliente(Cli);
+            }
         }
         //edita
         public void EditaCliente(entproducto Cli)
@@ -44,7 +44,7 @@ namespace capalogica
         {
             datproducto.Instancia.DeshabilitarCliente(Cli);
         }
-        #endregion metodos
-    
-}
-}
+    }
+}   
+
+
