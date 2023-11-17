@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
 using capaentidad;
 using capadatos;
+using capalogica;
 
 namespace capalogica
 {
@@ -23,27 +23,13 @@ namespace capalogica
                 return logproducto._instancia;
             }
         }
-        ///listado
-
-        public List<entproducto> ListarCliente()
-        {
-            return datproducto.Instancia.ListarCliente();
-
         ///inserta
-             void InsertaCliente(entproducto Cli)
+         public  void InsertarProducto(entproducto c)
             {
-                datproducto.Instancia.InsertarCliente(Cli);
+                datproducto.Instancia.InsertarProducto(c);
             }
         }
-        //edita
-        public void EditaCliente(entproducto Cli)
-        {
-            datproducto.Instancia.EditarCliente(Cli);
-        }
-        public void DeshabilitarCliente(entproducto Cli)
-        {
-            datproducto.Instancia.DeshabilitarCliente(Cli);
-        }
+
     }
 }   
 
