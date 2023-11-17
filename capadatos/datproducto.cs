@@ -11,26 +11,21 @@ namespace capadatos
 {
     public class datproducto
     { 
- //Patron Singleton
- // Variable estática para la instancia
- private static readonly datproducto _instancia = new datproducto();
-        //privado para evitar la instanciación directa
-        public static datproducto Instancia
-        {
-            get
-            {
-                return datproducto._instancia;
-            }
+        #region singleton
+        private static readonly datCliente _instancia = new datCliente();
+        public static datCliente Instancia{
+            get { return datCliente._instancia; }
         }
+        #endregion singleton
  /////////////////////////InsertaProducto
- public Boolean InsertarProducto(entproducto pro)
+ public Boolean InsertarProducto(entproducto c)
 {
     SqlCommand cmd = null;
     Boolean inserta = false;
     try
     {
-        SqlConnection cn = conexion.Instancia.Conectar();
-        cmd = new SqlCommand("spInsertarProducto", cn);
+        SqlConnection c = conexion.Instancia.Conectar();
+        cmd = new SqlCommand("spInsertarProducto", c);
         cmd.CommandType = CommandType.StoredProcedure;
         cmd.Parameters.AddWithValue("@nombre", pro.nombre);
         cmd.Parameters.AddWithValue("@precio", pro.precio);
@@ -42,9 +37,9 @@ namespace capadatos
             inserta = true;
         }
     }
-    catch (Exception e)
+    catch (Exception c)
     {
-        throw e;
+        throw c;
     }
     finally { cmd.Connection.Close(); }
     return inserta;
